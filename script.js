@@ -176,3 +176,58 @@ function renderUsers() {
         usersList.appendChild(userElement);
     });
 }
+
+
+// 3. handling the login form submission here
+
+const loginForm = document.getElementById("login-form");
+const loginMessage = document.getElementById("login-message");
+
+
+loginForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const username = document.getElementById("login-username").value;
+    const password = document.getElementById("login-password").value;
+
+
+    // Find user by username
+    const user = users.find(function (existingUser) {
+        return existingUser.username === username;
+    });
+
+
+    // Username doesn't exist
+    if (!user) {
+        showLoginMessage(
+            "Username not found!",
+            "error-message"
+        );
+
+        return;
+    }
+
+
+    // Password doesn't match
+    if (user.password !== password) {
+        showLoginMessage(
+            "Incorrect password!",
+            "error-message"
+        );
+
+        return;
+    }
+
+
+    // Login successful
+    showLoginMessage(
+        "Login successful!",
+        "success-message"
+    );
+
+});
+function showLoginMessage(message, type) {
+    loginMessage.textContent = message;
+    loginMessage.className = type;
+}
