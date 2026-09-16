@@ -122,3 +122,57 @@ registerForm.reset();
 
   // console.log(user);
 });
+
+//2. showing all users in the users section
+
+const usersList = document.getElementById("users-list");
+
+usersNavBtn.addEventListener("click", function () {
+
+    registerSection.style.display = "none";
+    loginSection.style.display = "none";
+    usersSection.style.display = "block";
+
+    renderUsers();
+});
+
+// renderUsers function is to take user data and
+//  convert it into visible HTML or UI elements to
+//   display on a web page or application interface
+function renderUsers() {
+
+    // here Clearing existing users from UI
+    usersList.innerHTML = "";
+
+
+    // Checking if there are no users
+    if (users.length === 0) {
+
+        usersList.textContent = "No users registered yet.";
+
+        return;
+    }
+
+
+    // fetching all users
+    users.forEach(function (user) {
+
+        // Creating container
+        const userElement = document.createElement("div");
+
+
+        // Adding user information
+        userElement.innerHTML = `
+            <p>Username: ${user.username}</p>
+            <p>Name: ${user.firstName} ${user.lastName}</p>
+            <p>Email: ${user.email}</p>
+            <p>Gender: ${user.gender}</p>
+            <p>Role: ${user.role}</p>
+            <hr>
+        `;
+
+
+        // Add user to users list
+        usersList.appendChild(userElement);
+    });
+}
